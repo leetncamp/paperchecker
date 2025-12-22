@@ -66,3 +66,8 @@ class Upload(models.Model):
     confirm_title_case = models.BooleanField(default=False)
     confirm_macos_preview = models.BooleanField(default=False)
     confirm_type_3_fonts = models.BooleanField(default=False)
+
+
+
+    def __str__(self):
+        return self.upload_paper.name

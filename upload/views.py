@@ -33,57 +33,66 @@ class UploadForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        def clean_confirm_exactly_as_in_openreview(self):
-            data = self.cleaned_data["confirm_exactly_as_in_openreview"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_exactly_as_in_openreview(self):
+        data = self.cleaned_data["confirm_exactly_as_in_openreview"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_styles(self):
-            data = self.cleaned_data["confirm_styles"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_styles(self):
+        data = self.cleaned_data["confirm_styles"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_title(self):
-            data = self.cleaned_data["confirm_title"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_title(self):
+        data = self.cleaned_data["confirm_title"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_9_pages(self):
-            data = self.cleaned_data["confirm_9_pages"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_9_pages(self):
+        data = self.cleaned_data["confirm_9_pages"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_appendices(self):
-            data = self.cleaned_data["confirm_appendices"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_appendices(self):
+        data = self.cleaned_data["confirm_appendices"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_abstract(self):
-            data = self.cleaned_data["confirm_abstract"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_abstract(self):
+        data = self.cleaned_data["confirm_abstract"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_title_case(self):
-            data = self.cleaned_data["confirm_title_case"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_title_case(self):
+        data = self.cleaned_data["confirm_title_case"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_macos_preview(self):
-            data = self.cleaned_data["confirm_macos_preview"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_macos_preview(self):
+        data = self.cleaned_data["confirm_macos_preview"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
-        def clean_confirm_type_3_fonts(self):
-            data = self.cleaned_data["confirm_type_3_fonts"]
-            if not data:
-                raise forms.ValidationError("Please confirm.")
+    def clean_confirm_type_3_fonts(self):
+        data = self.cleaned_data["confirm_type_3_fonts"]
+        if not data:
+            raise forms.ValidationError("Please confirm.")
+        return data
 
 
 def upload(request):
     if request.method == 'POST':
         uploadForm = UploadForm(request.POST, request.FILES)
         if uploadForm.is_valid():
-            pass
+            uploadForm.save()
         else:
             pass
     else:
