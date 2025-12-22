@@ -51,6 +51,7 @@ def validate_pdf_20mb(file_obj) -> None:
 
 
 class Upload(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=None, editable=False)
     confirm_exactly_as_in_openreview = models.BooleanField(default=False)
     paper_id = models.IntegerField(blank=False, null=False)
     name = models.CharField(max_length=255)
@@ -68,6 +69,9 @@ class Upload(models.Model):
     confirm_type_3_fonts = models.BooleanField(default=False)
 
 
-
     def __str__(self):
         return self.upload_paper.name
+
+    def delete(self, *args, **kwargs):
+        self.upload_paper.delete()
+        super().delete(*args, **kwargs)
