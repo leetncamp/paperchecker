@@ -12,17 +12,16 @@
     {% csrf_token %}
 
     {{ uploadForm.non_field_errors }}
-    <table>
+    <table style="max-width: 1080px;">
         {% for field in uploadForm %}
             <tr>
-                <td>
-                    {% if 'confirm' in field.label %}
-                        <td>{{ field.as_widget }} &nbsp;{{ field.errors }}</td>
-                        <td> &nbsp;{{ field.label_tag }}</td>
-                    {% else %}
-                        <td>{{ field.label_tag }} &nbsp;{{ field.errors }}</td>
-                        <td>{{ field }}</td>
-                    {% endif %}
+                {% if 'confirm' in field.label %}
+                    <td>{{ field.as_widget }} &nbsp;{{ field.errors }}</td>
+                    <td> &nbsp;{{ field.label_tag }}</td>
+                {% else %}
+                    <td>{{ field.label_tag }} &nbsp;{{ field.errors }}</td>
+                    <td>{{ field }}</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
