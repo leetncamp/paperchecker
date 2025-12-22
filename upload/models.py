@@ -58,3 +58,11 @@ class Upload(models.Model):
     upload_paper = models.FileField(
         upload_to='uploads/', validators=[validate_pdf_20mb])
     type = models.CharField(choices=[('Paper', 'Paper'), ('Position Paper', 'Position Paper')])
+    confirm_styles = models.BooleanField(default=False)
+    confirm_title = models.BooleanField(default=False)
+    confirm_9_pages = models.BooleanField(default=False)
+    confirm_appendices = models.BooleanField(default=False)
+    confirm_abstract = models.BooleanField(default=False)
+    confirm_title_case = models.BooleanField(default=False)
+    confirm_macos_preview = models.BooleanField(default=False)
+    confirm_type_3_fonts = models.BooleanField(default=False)
