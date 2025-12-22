@@ -1,5 +1,7 @@
 from django import forms
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
+
 from .models import Upload
 
 
@@ -8,8 +10,8 @@ class UploadForm(forms.ModelForm):
         model = Upload
         exclude = []
         labels = {
-            'confirm_exactly_as_in_openreview': 'I confirm the information below is <strong>exactly</strong> as in '
-                                                'OpenReview',
+            'confirm_exactly_as_in_openreview': mark_safe('I confirm the information below is '
+                                                          '<strong>exactly</strong> as in OpenReview'),
             'confirm_styles': 'I confirm that the paper is compiled with the latest version of the ICML 2025 style '
                               'files (from here), and I have not modified this style file.',
             'confirm_title': "I confirm that my camera-ready PDF lists the correct title and authors on the first "
@@ -30,13 +32,60 @@ class UploadForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            self.fields[name].chkbx = "checkbox" in field.widget.__class__.__name__.lower()
+
+        def clean_confirm_exactly_as_in_openreview(self):
+            data = self.cleaned_data["confirm_exactly_as_in_openreview"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_styles(self):
+            data = self.cleaned_data["confirm_styles"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_title(self):
+            data = self.cleaned_data["confirm_title"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_9_pages(self):
+            data = self.cleaned_data["confirm_9_pages"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_appendices(self):
+            data = self.cleaned_data["confirm_appendices"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_abstract(self):
+            data = self.cleaned_data["confirm_abstract"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_title_case(self):
+            data = self.cleaned_data["confirm_title_case"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_macos_preview(self):
+            data = self.cleaned_data["confirm_macos_preview"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
+
+        def clean_confirm_type_3_fonts(self):
+            data = self.cleaned_data["confirm_type_3_fonts"]
+            if not data:
+                raise forms.ValidationError("Please confirm.")
 
 
 def upload(request):
     if request.method == 'POST':
         uploadForm = UploadForm(request.POST, request.FILES)
+        if uploadForm.is_valid():
+            pass
+        else:
+            pass
     else:
         uploadForm = UploadForm()
     return render(request, 'upload/upload.html', locals())
