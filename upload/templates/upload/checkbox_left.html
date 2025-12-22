@@ -1,0 +1,16 @@
+{% load crispy_forms_field %}
+
+<div class="form-check">
+    {% crispy_field field 'class' 'form-check-input' %}
+    <label class="form-check-label" for="{{ field.id_for_label }}">
+        {{ field.label|safe }}
+    </label>
+
+    {% if field.help_text %}
+        <div class="form-text">{{ field.help_text|safe }}</div>
+    {% endif %}
+
+    {% for error in field.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+    {% endfor %}
+</div>

@@ -2,12 +2,14 @@ from django import forms
 from django.shortcuts import render
 from .models import Upload
 
+
 class UploadForm(forms.ModelForm):
     class Meta:
         model = Upload
         exclude = []
         labels = {
-            'confirm_exactly_as_in_openreview': 'I confirm the information below is exactly as in OpenReview',
+            'confirm_exactly_as_in_openreview': 'I confirm the information below is <strong>exactly</strong> as in '
+                                                'OpenReview',
             'confirm_styles': 'I confirm that the paper is compiled with the latest version of the ICML 2025 style '
                               'files (from here), and I have not modified this style file.',
             'confirm_title': "I confirm that my camera-ready PDF lists the correct title and authors on the first "
@@ -26,8 +28,15 @@ class UploadForm(forms.ModelForm):
                                     'converted eps figures to png figures just to bypass the check',
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            self.fields[name].chkbx = "checkbox" in field.widget.__class__.__name__.lower()
 
 
 def upload(request):
-    uploadForm = UploadForm()
+    if request.method == 'POST':
+        uploadForm = UploadForm(request.POST, request.FILES)
+    else:
+        uploadForm = UploadForm()
     return render(request, 'upload/upload.html', locals())
