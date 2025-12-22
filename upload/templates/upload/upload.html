@@ -14,16 +14,18 @@
     {{ uploadForm.non_field_errors }}
     <table>
         {% for field in uploadForm %}
-            <div style="padding:3px;">
-                {% if 'confirm' in field.label %}
-                    {{ field.as_widget }} &nbsp;{{ field.errors }} &nbsp;{{ field.label_tag }}
-                {% else %}
-                    {{ field.label_tag }} &nbsp;{{ field.errors }}{{ field }}
-                {% endif %}
-            </div>
-
+            <tr>
+                <td>
+                    {% if 'confirm' in field.label %}
+                        <td>{{ field.as_widget }} &nbsp;{{ field.errors }}</td>
+                        <td> &nbsp;{{ field.label_tag }}</td>
+                    {% else %}
+                        <td>{{ field.label_tag }} &nbsp;{{ field.errors }}</td>
+                        <td>{{ field }}</td>
+                    {% endif %}
+            </tr>
         {% endfor %}
     </table>
-    <button type="submit">Upload</button>
+    <button class="btn btn-primary my-3" type="submit">Upload</button>
 </body>
 </html>
