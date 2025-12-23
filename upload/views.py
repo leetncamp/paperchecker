@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
-
+from paperchecker.tasks import check_paper
 from .models import Upload
 
 
@@ -93,6 +93,7 @@ def upload(request):
         uploadForm = UploadForm(request.POST, request.FILES)
         if uploadForm.is_valid():
             uploadForm.save()
+            check_paper.delay(uploadForm.instance.uuid)
         else:
             pass
     else:

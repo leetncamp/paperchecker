@@ -125,3 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+CELERY_RESULT_BACKEND = "redis://127.0.0.1"
+CELERY_BROKER_URL = "redis://127.0.0.1"
