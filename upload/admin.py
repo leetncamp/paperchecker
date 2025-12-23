@@ -7,4 +7,10 @@ from upload.models import Upload
 
 @admin.register(Upload)
 class UploadAdmin(admin.ModelAdmin):
-    pass
+
+    def delete_and_remove_upload(self, request, queryset):
+        for obj in queryset:
+            obj.upload_paper.delete(False)
+            obj.delete()
+
+    actions = ['delete_and_remove_upload']
