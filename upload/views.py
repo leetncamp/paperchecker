@@ -8,7 +8,7 @@ from .models import Upload
 class UploadForm(forms.ModelForm):
     class Meta:
         model = Upload
-        exclude = []
+        exclude = ['processed']
         labels = {
             'confirm_exactly_as_in_openreview': mark_safe('I confirm the information below is '
                                                           '<strong>exactly</strong> as in OpenReview'),

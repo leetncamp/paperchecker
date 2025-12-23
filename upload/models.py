@@ -68,6 +68,7 @@ class Upload(models.Model):
     confirm_title_case = models.BooleanField(default=False)
     confirm_macos_preview = models.BooleanField(default=False)
     confirm_type_3_fonts = models.BooleanField(default=False)
+    processed = models.BooleanField(default=False)
 
 
     def __str__(self):
